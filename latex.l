@@ -45,6 +45,7 @@
 #define  TLABEL             241
 #define  TTABLE             242
 #define  TTABULAR           243
+#define  TBASELINE          244
 //ENDDEF
 
 /*
@@ -60,11 +61,12 @@ Questions
 ws		        [ \t\n]+
 word		    ([a-zA-Z0-9])*
 tablespec       \[(h|t|b)\]
-colspec         (c|l|r)+
+colspec         \{(c|l|r)+\}
 int             ([0-9])* 
 counter         \{(1[0-9]?|2[0-6]?|[1-9])\}   
 STYLE           \{arabic|roman|alph|Roman|Alph|\}
 string          \{([ -"]|['-Z]|[`-z]|(\\([#-&]|\[|[\]-\_]|[\{-~])))*\}
+escpchar        \\([\{-~])
 %%
 "\\\\"			    {printf(" Val: %d\t; Lexeme: %s \n", 
 				    TDBACK, yytext);return(TDBACK);}
@@ -123,13 +125,15 @@ string          \{([ -"]|['-Z]|[`-z]|(\\([#-&]|\[|[\]-\_]|[\{-~])))*\}
 "\\Roman"			{printf(" Val: %d\t; Lexeme: %s \n", 
 			    	TROMAN, yytext);return(TROMAN);}
 "\\alph"			{printf(" Val: %d\t; Lexeme: %s \n", 
-			    	TALPH, yytext);return(TALPH);}
+			    	TAlph, yytext);return(TAlph);}
 "\\roman"			{printf(" Val: %d\t; Lexeme: %s \n", 
-				    TROMAN, yytext);return(TROMAN);}
+				    TRoman, yytext);return(TRoman);}
 "\\arabic"			{printf(" Val: %d\t; Lexeme: %s \n", 
 				    TARABIC, yytext);return(TARABIC);}
 "\\pagenumbering"	{printf(" Val: %d\t; Lexeme: %s \n", 
     				TPAGENUMBERING, yytext);return(TPAGENUMBERING);}
+"\\baselinestretch"	{printf(" Val: %d\t; Lexeme: %s \n", 
+    				TBASELINE, yytext);return(TBASELINE);}
 "\\renewcommand"	{printf(" Val: %d\t; Lexeme: %s \n", 
 				    TRENEWCOMMAND, yytext);return(TRENEWCOMMAND);}
 "\\tableofcontents"	{printf(" Val: %d\t; Lexeme: %s \n", 
