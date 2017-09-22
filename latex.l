@@ -46,6 +46,12 @@
 #define  TTABLE             242
 #define  TTABULAR           243
 #define  TBASELINE          244
+#define  TSARABIC           245
+#define  TSROMAN            246
+#define  TSALPH             247
+#define  TSRoman            248
+#define  TSAlph             249
+#define  TPUNC              250
 //ENDDEF
 
 /*
@@ -54,12 +60,14 @@ Questions
     does int need to be more specific??
     Strings??
     Counters???
+word		    ([a-zA-Z0-9](.|,|;|:|'|"|)?)*
 */
 
 
 %}
 ws		        [ \t\n]+
 word		    ([a-zA-Z0-9])*
+punc            (\.|\>|\<|\:|\;|'|\")*
 tablespec       \[(h|t|b)\]
 colspec         \{(c|l|r)+\}
 int             ([0-9])* 
@@ -142,6 +150,18 @@ escpchar        \\([\{-~])
 				    TSUBSECTION, yytext);return(TSUBSECTION);}
 "\\section"			{printf(" Val: %d\t; Lexeme: %s \n", 
 				    TSECTION, yytext);return(TSECTION);}
+"\{Alph\}"  		{printf(" Val: %d\t; Lexeme: %s \n", 
+			    	TSALPH, yytext);return(TALPH);}
+"\{Roman\}"	   		{printf(" Val: %d\t; Lexeme: %s \n", 
+			    	TSROMAN, yytext);return(TROMAN);}
+"\{alph\}"	    	{printf(" Val: %d\t; Lexeme: %s \n", 
+			    	TSAlph, yytext);return(TAlph);}
+"\{roman\}"		    {printf(" Val: %d\t; Lexeme: %s \n", 
+				    TSRoman, yytext);return(TRoman);}
+"\{arabic\}"		{printf(" Val: %d\t; Lexeme: %s \n", 
+				    TSARABIC, yytext);return(TARABIC);}
+{punc}              {printf(" Val: %d\t; Lexeme: %s \n", 
+				    TPUNC, yytext);return(TPUNC);}
 {counter}           {printf(" Val: %d\t; Lexeme: %s \n", 
 				    TCOUNT, yytext);return(TCOUNT);}
 {int}               {printf(" Val: %d\t; Lexeme: %s \n", 
