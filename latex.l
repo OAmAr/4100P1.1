@@ -72,7 +72,6 @@ tablespec       \[(h|t|b)\]
 colspec         \{(c|l|r)+\}
 int             ([0-9])* 
 counter         \{(1[0-9]?|2[0-6]?|[1-9])\}   
-STYLE           \{arabic|roman|alph|Roman|Alph|\}
 string          \{([ -"]|['-Z]|[`-z]|(\\([#-&]|\[|[\]-\_]|[\{-~])))*\}
 escpchar        \\([\{-~])
 %%
@@ -166,8 +165,6 @@ escpchar        \\([\{-~])
 				    TCOUNT, yytext);return(TCOUNT);}
 {int}               {printf(" Val: %d\t; Lexeme: %s \n", 
 				    TINT, yytext);return(TINT);}
-{STYLE}             {printf(" Val: %d\t; Lexeme: %s \n", 
-				    TSTYLE, yytext);return(TSTYLE);}
 {tablespec}		    {printf(" Val: %d\t; Lexeme: %s \n", 
 				    TTABLESPEC, yytext);return(TTABLESPEC);}
 {colspec}	    	{printf(" Val: %d\t; Lexeme: %s \n", 
